@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci_feature:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build Container Image
+      run: |
+        docker build -t nombre-de-tu-imagen:etiqueta .
+      
+    - name: Run Automated Tests
+      run: |
+        # TODO
+
+    - name: Deploy
+      if: success() && github.ref == 'refs/heads/main'
+      run: |
+        # TODO
+
+    - name: Notify on Failure
+      if: failure()
+      run: |
+        # TODO
