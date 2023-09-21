@@ -1,7 +1,9 @@
 name: CI/CD Pipeline
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - '*' 
 
 env:
   PROJECT_NAME: tic-tac-toe
