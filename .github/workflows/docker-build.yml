@@ -16,6 +16,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
       
+    - name: Run Automated Tests
+      run: |
+        # TODO
+      
     - name: Get Tag Name
       id: tag
       run: |
@@ -30,10 +34,6 @@ jobs:
 
     - name: Cleanup Docker Credentials
       run: docker logout
-      
-    - name: Run Automated Tests
-      run: |
-        # TODO
         
   cd_feature:
     runs-on: ubuntu-latest
