@@ -21,9 +21,10 @@ jobs:
         
     - name: Build Container Image
       run: |
-        docker build -t ${{ env.PROJECT_NAME }}:${{ steps.tag.outputs.tag }} .
+        TAG_NAME="${{ steps.tag.outputs.tag }}"
+        docker build -t ${{ env.PROJECT_NAME }}:$TAG_NAME .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push ${{ env.PROJECT_NAME }}:${{ steps.tag.outputs.tag }}
+        docker push ${{ env.PROJECT_NAME }}:$TAG_NAME
 
     - name: Cleanup Docker Credentials
       run: docker logout
