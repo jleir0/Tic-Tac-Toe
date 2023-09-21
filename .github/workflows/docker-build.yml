@@ -14,17 +14,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
       
-    - name: Get Latest Docker Tag
-      id: latest_tag
+    - name: Get Tag Name
+      id: tag
       run: |
-        LATEST_TAG=$(docker image ls ${{ env.PROJECT_NAME }} --format "{{.Tag}}" | sort -V | tail -n 1)
-        echo "::set-output name=tag::$LATEST_TAG"
+        echo "::set-output name=tag::$(git describe --tags --abbrev=0)"      
         
     - name: Build Container Image
       run: |
-        docker build -t ${{ env.PROJECT_NAME }}:${{ steps.latest_tag.outputs.tag }} .
+        docker build -t ${{ env.PROJECT_NAME }}:${{ steps.tag.outputs.tag }} .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push ${{ env.PROJECT_NAME }}:${{ steps.latest_tag.outputs.tag }}
+        docker push ${{ env.PROJECT_NAME }}:${{ steps.tag.outputs.tag }}
 
     - name: Cleanup Docker Credentials
       run: docker logout
