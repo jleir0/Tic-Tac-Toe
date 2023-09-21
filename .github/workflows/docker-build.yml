@@ -27,7 +27,8 @@ jobs:
         
     - name: Build Container Image
       run: |
-        TAG_NAME="${{ steps.tag.outputs.tag }}"
+        TAG_NAME="${{ steps.tag.outputs.tag }}"        
+        echo "$TAG_NAME"     
         docker build -t ${{ env.PROJECT_NAME }}:$TAG_NAME .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
         docker push jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME
