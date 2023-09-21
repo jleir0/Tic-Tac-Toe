@@ -31,7 +31,7 @@ jobs:
         echo "$TAG_NAME"     
         docker build -t ${{ env.PROJECT_NAME }}:$TAG_NAME .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
-        docker push jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME
+        docker push ${{ env.PROJECT_NAME }}:$TAG_NAME
 
     - name: Cleanup Docker Credentials
       run: docker logout
