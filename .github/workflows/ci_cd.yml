@@ -50,15 +50,8 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
 
-    - name: Pull Docker image from Docker Hub
-      run: docker pull tic-tac-toe:v1.0.0
-
-    - name: Tag the Docker image for OpenShift registry
-      run: docker tag tic-tac-toe:v1.0.0 image-registry.openshift-image-registry.svc:5000/tic-tac-toe:v1.0.0
-
-    - name: Push Docker image to OpenShift registry
-      run: docker push image-registry.openshift-image-registry.svc:5000/tic-tac-toe:v1.0.0
-
-    - name: Deploy the application to OpenShift
+    - name: Deploy to OpenShift
       run: |
-        oc apply -f deployment.yaml 
+        oc apply -f deployment.yaml
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
