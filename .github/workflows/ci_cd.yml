@@ -53,5 +53,3 @@ jobs:
     - name: Deploy to OpenShift
       run: |
         oc apply -f deployment.yaml
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
