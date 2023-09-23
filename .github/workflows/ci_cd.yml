@@ -52,4 +52,5 @@ jobs:
 
     - name: Deploy to OpenShift
       run: |
-        oc apply -f ./deployment.yaml
+        ls
+        oc apply -f deployment.yaml
