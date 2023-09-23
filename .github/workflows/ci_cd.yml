@@ -52,5 +52,4 @@ jobs:
 
     - name: Deploy to OpenShift
       run: |
-        ls
-        oc apply -f deployment.yaml
+        oc apply -f .github/workflows/deployment.yaml
