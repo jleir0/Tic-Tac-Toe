@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tic-tac-toe
+  name: workspacec35d79b1c931470f
 spec:
   replicas: 1
   selector:
@@ -14,6 +14,4 @@ spec:
     spec:
       containers:
         - name: tic-tac-toe
-          image: tic-tac-toe
-          ports:
-            - containerPort: 80
+          image: jleir0/tic-tac-toe:latest
