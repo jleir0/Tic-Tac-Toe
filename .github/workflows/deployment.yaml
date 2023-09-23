@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: workspacec35d79b1c931470f
+  name: tic-tac-toe
 spec:
   replicas: 1
   selector:
