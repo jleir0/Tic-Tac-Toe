@@ -32,14 +32,6 @@ jobs:
         docker build -t jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
         docker push jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME
-        
-  cd_feature:
-    runs-on: ubuntu-latest
-    needs: ci_feature
-  
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
 
     - name: Login to OpenShift
       uses: redhat-actions/oc-login@v1
@@ -51,5 +43,3 @@ jobs:
       run: |
         oc apply -f .github/workflows/deployment.yaml
 
-    - name: Cleanup Docker Credentials
-      run: docker logout
