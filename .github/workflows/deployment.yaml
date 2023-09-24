@@ -23,5 +23,5 @@ spec:
     spec:
       containers:
         - name: tic-tac-toe
-          image: jleir0/tic-tac-toe:${{ steps.tag.outputs.tag }}
+          image: tic-tac-toe:latest
 
