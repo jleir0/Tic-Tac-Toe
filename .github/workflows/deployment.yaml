@@ -1,12 +1,11 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: tic-tac-toe
+  name: tic-tac-toe-deployment
 spec:
   replicas: 1
   selector:
     app: tic-tac-toe
-    deploymentconfig: tic-tac-toe
   strategy:
     type: Rolling
     rollingParams:
@@ -19,9 +18,8 @@ spec:
     metadata:
       labels:
         app: tic-tac-toe
-        deploymentconfig: tic-tac-toe
     spec:
       containers:
-        - name: tic-tac-toe
+        - name: tic-tac-toe-container
           image: tic-tac-toe:latest
 
