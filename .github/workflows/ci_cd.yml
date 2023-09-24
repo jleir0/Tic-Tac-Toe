@@ -43,6 +43,11 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
 
+    - name: Get Tag Name
+      id: tag
+      run: |
+        echo "::set-output name=tag::$(git describe --tags --abbrev=0)"  
+        
     - name: Update imagestream
       run: |      
         TAG_NAME="${{ steps.tag.outputs.tag }}" 
