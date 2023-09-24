@@ -7,6 +7,7 @@ on:
 
 env:
   PROJECT_NAME: tic-tac-toe
+  TAG: v1.0.0
   
 jobs:
   ci_feature:
@@ -21,17 +22,14 @@ jobs:
         # TODO
       
     - name: Get Tag Name
-      id: tag
       run: |
-        echo "::set-output name=tag::$(git describe --tags --abbrev=0)"      
+        echo "::set-env name=TAG::$(git describe --tags --abbrev=0)"  
         
     - name: Build Container Image
       run: |
-        TAG_NAME="${{ steps.tag.outputs.tag }}"        
-        echo "$TAG_NAME"     
-        docker build -t jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME .
+        docker build -t jleir0/${{ env.PROJECT_NAME }}:${{ env.TAG }}.
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
-        docker push jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME
+        docker push jleir0/${{ env.PROJECT_NAME }}:${{ env.TAG }}
 
   cd_feature:
     runs-on: ubuntu-latest
@@ -49,7 +47,7 @@ jobs:
 
     - name: Update imagestream
       run: |
-        oc tag docker.io/jleir0/tic-tac-toe:${{ steps.tag.outputs.tag }} tic-tac-toe:${{ steps.tag.outputs.tag }}
+        oc tag docker.io/jleir0/tic-tac-toe:${{ env.TAG }} tic-tac-toe:${{ env.TAG }}
         
     - name: Deploy to OpenShift
       run: |
