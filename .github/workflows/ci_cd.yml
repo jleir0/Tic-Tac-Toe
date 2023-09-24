@@ -49,7 +49,7 @@ jobs:
 
     - name: Update imagestream
       run: |
-        oc tag docker.io/jleir0/tic-tac-toe:latest tic-tac-toe:latest
+        oc tag docker.io/jleir0/tic-tac-toe:${{ steps.tag.outputs.tag }} tic-tac-toe:${{ steps.tag.outputs.tag }}
         
     - name: Deploy to OpenShift
       run: |
