@@ -33,6 +33,13 @@ jobs:
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
         docker push jleir0/${{ env.PROJECT_NAME }}:$TAG_NAME
 
+  cd_feature:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
     - name: Login to OpenShift
       uses: redhat-actions/oc-login@v1
       with:
