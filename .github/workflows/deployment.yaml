@@ -23,5 +23,5 @@ spec:
         - name: tic-tac-toe-container
           image: tic-tac-toe-imagestream:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
 
