@@ -46,6 +46,10 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
 
+    - name: Update imagestream
+      run: |
+        oc tag docker.io/jleir0/tic-tac-toe:latest tic-tac-toe:latest
+        
     - name: Deploy to OpenShift
       run: |
         oc apply -f .github/workflows/deployment.yaml
