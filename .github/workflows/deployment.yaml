@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: tic-tac-toe
-          image: tic-tac-toe:v1.0.0
+          image: tic-tac-toe:latest
