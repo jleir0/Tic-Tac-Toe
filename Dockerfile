@@ -4,6 +4,9 @@ FROM python:3.8
 # Establece el directorio de trabajo en /app
 WORKDIR /app
 
+# Copia todo el contenido de la carpeta src al directorio de trabajo en la imagen
+COPY src/ /app/
+
 # Copia el archivo de requisitos al contenedor
 COPY requirements.txt .
 
