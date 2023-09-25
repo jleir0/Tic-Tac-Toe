@@ -9,12 +9,12 @@ class MatchServices(object):
 
     @staticmethod
     def place_mark(args):
-        return None
+        return 200, "Okey"
     
     @staticmethod
     def get_match(matchId):
-        return None
+        return 200, "Okey"
     
     @staticmethod
     def post_match():
-        return None
+        return 200, "Okey"
