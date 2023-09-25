@@ -19,6 +19,10 @@ spec:
       labels:
         app: tic-tac-toe
     spec:
+      initContainers:
+        - name: set-changed
+          image: alpine:latest
+          command: ['sh', '-c', 'echo "::set-output name=changed::true"']
       containers:
         - name: tic-tac-toe-container
           image: tic-tac-toe-imagestream:latest
