@@ -29,7 +29,7 @@ class MarkMovementApi(Resource):
                 type=str,
                 required=True,
                 default="X",
-                help="The mark to be placed."
+                help="The mark to be placed: X o O."
             )
             parser.add_argument(
                 "square",
