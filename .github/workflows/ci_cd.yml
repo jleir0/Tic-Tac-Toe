@@ -53,7 +53,3 @@ jobs:
         TAG_NAME="${{ steps.tag.outputs.tag }}" 
         oc tag docker.io/jleir0/tic-tac-toe:$TAG_NAME tic-tac-toe-imagestream:latest
 
-     - name: Deploy to OpenShift
-        id: deploy
-        uses: .github/workflows/deployment.yaml
-        if: steps.deploy.outputs.changed == 'true'
