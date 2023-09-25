@@ -1,10 +1,9 @@
 from flask import Flask
+from microservices.match.controller.match import match_api
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-    return '¡Hola, mundo!'
+app.register_blueprint(match_api, url_prefix='/TicTacToe')
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='127.0.0.1', port=5000, debug=True)
