@@ -1,73 +1,28 @@
 """Match controller."""
-from flask_restx import Resource, reqparse
-from flask_restful import Api, abort
-from ..dto.match import MatchDTO
+from flask import Blueprint
+from flask_restful import Api, reqparse, Resource
 from ..service.match import MatchServices
+from microservices.match.dto.match import MatchDTO
 
-api = MatchDTO.api
+match_api = Blueprint('match_api', __name__)
+api = Api(match_api)
 
-@api.rout("/move")
-class MarkMovementApi(Resource):
-    """Mark Movement Api."""
-
-    @api.doc(description="Play a move within the game.")
-    @api.response(200, "Mark placed.", MatchDTO.placeMark)
-    @api.response(400, "Bad request.")
-    @api.response(404, "Not found.")
+class MoveResource(Resource):
     def post(self):
-        """Play a move within the game."""
-        try:
-            parser = reqparse.RequestParser()
-            parser.add_argument(
-                "matchId",
-                type=int,
-                required=True,
-                help="The match´s ID."
-            )
-            parser.add_argument(
-                "playerId",
-                type=str,
-                required=True,
-                default="X",
-                help="The mark to be placed: X o O."
-            )
-            parser.add_argument(
-                "square",
-                type=dict,
-                required=True,
-                help="The target square to mark."
-            )
-            args = parser.parse_args()
-            return MatchServices.place_mark(args)
-        except Exception as e:
-            return {'message': 'Internal server error'}, 500
+        match_parser = reqparse.RequestParser()
+        match_parser.add_argument('matchId', type=str, required=True, help='The match´s ID.')
+        match_parser.add_argument('playerId', type=str, required=True, help='The acting player. X or O.')
+        match_parser.add_argument('square', type=str, required=True, help='The target square to mark.')        
+        args = match_parser.parse_args(strict=True)
+        return MatchServices.place_mark(args)
+api.add_resource(MoveResource, '/move', endpoint='move')
 
-@api.rout("/status/<int:matchId>")
-class MatchStatusApi(Resource):
-    """Match Status Api."""
+class StatusResource(Resource):
+    def get(self,matchId):
+        return MatchServices.get_match(matchId)
+api.add_resource(StatusResource, '/status/<string:matchId>', endpoint='status')
 
-    @api.doc(description="Current status of a given match.")
-    @api.response(200, "Current status.")
-    @api.response(400, "Bad request.")
-    @api.response(404, "Not found.")
-    def get(self, matchId):
-        """Play a move within the game."""
-        try:
-            return MatchServices.get_match(matchId)
-        except Exception as e:
-            return {'message': 'Internal server error'}, 500
-
-@api.rout("/create")
-class MatchCreatorApi(Resource):
-    """Match Creator Api."""
-
-    @api.doc(description="Create a new match.")
-    @api.response(200, "Match created.", MatchDTO.newMatch)
-    @api.response(400, "Bad request.")
-    @api.response(404, "Not found.")
+class CreateResource(Resource):
     def post(self):
-        """Create a new match."""
-        try:
-            return MatchServices.post_match()
-        except Exception as e:
-            return {'message': 'Internal server error'}, 500
+        return MatchServices.post_match()
+api.add_resource(CreateResource, '/create', endpoint='create')
