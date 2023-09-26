@@ -55,5 +55,5 @@ jobs:
        
     - name: Update deploymentconfig
       run: | 
-        oc set image deployment/tic-tac-toe mi-contenedor=tic-tac-toe-imagestream:latest
+        oc set image deployment/tic-tac-toe container=tic-tac-toe-imagestream:latest
 
