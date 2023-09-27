@@ -52,8 +52,5 @@ jobs:
       run: |      
         TAG_NAME="${{ steps.tag.outputs.tag }}" 
         oc tag docker.io/jleir0/tic-tac-toe:$TAG_NAME tic-tac-toe-imagestream:latest
-       
-    - name: Update deploymentconfig
-      run: | 
-        oc set image deployment/tic-tac-toe container=tic-tac-toe-imagestream:latest
+
 
