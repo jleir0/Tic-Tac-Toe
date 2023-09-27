@@ -56,4 +56,5 @@ jobs:
     - name: Update deploymentconfig
       run: | 
         oc set image deployment/tic-tac-toe container=tic-tac-toe-imagestream:latest
+        oc set env deployment/tic-tac-toe PORT=5000
 
