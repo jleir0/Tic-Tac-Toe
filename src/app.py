@@ -1,5 +1,5 @@
 from flask import Flask
-from .microservices/match/controllers/match import match_api
+from .microservices.match.controllers.match import match_api
 
 app = Flask(__name__)
 
