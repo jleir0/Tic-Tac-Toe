@@ -1,11 +1,11 @@
 # Usa una imagen base de Python
 FROM python:3.8
 
-# Copia todo el contenido de la carpeta src al directorio de trabajo en la imagen
-COPY src/ /src/
+# Establece el directorio de trabajo en /app
+WORKDIR /app
 
-# Establece el directorio de trabajo en /src
-WORKDIR /src
+# Copia todo el contenido de la carpeta src al directorio de trabajo en la imagen
+COPY src/ /app/
 
 # Copia el archivo de requisitos al contenedor
 COPY requirements.txt .
