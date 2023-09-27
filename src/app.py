@@ -1,9 +1,13 @@
 from flask import Flask
-from microservices.match.controller.match import match_api
 
-tic_tac_toe = Flask(__name__)
+# Crea una instancia de la aplicación Flask
+app = Flask(__name__)
 
-tic_tac_toe.register_blueprint(match_api, url_prefix='/')
+# Define una ruta y función de vista para la ruta raíz
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 if __name__ == '__main__':
-    tic_tac_toe.run(host='127.0.0.1', port=5000)
+    # Ejecuta la aplicación en el puerto 5000
+    app.run()
