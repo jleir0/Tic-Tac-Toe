@@ -13,5 +13,8 @@ COPY requirements.txt .
 # Instala las dependencias
 RUN pip install -r requirements.txt
 
+# Copia el código fuente de la aplicación al contenedor
+COPY . .
+
 # Especifica el comando de inicio
 CMD ["python", "app.py"]
