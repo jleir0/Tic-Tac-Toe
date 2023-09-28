@@ -1,11 +1,13 @@
-from flask import Blueprint, jsonify
+from flask_restx import Namespace, Resource
 
-match_api = Blueprint('match_api', __name__)
+match_api = Namespace('match', description='Operaciones de Juego')
 
-@match_api.route('/match', methods=['GET'])
-def obtener_servicio1():
-    data = {
-        'mensaje': 'todo correcto',
-        'descripcion': 'Estas ejecutando un GET.'
-    }
-    return jsonify(data)
+@match_api.route('/')
+class MatchResource(Resource):
+    def get(self):
+        """
+        Obtiene información sobre los juegos.
+
+        Descripción adicional si es necesaria.
+        """
+        return {'mensaje': 'Todo correcto', 'descripcion': 'Obteniendo información sobre los juegos'}
