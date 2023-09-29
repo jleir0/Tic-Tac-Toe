@@ -17,7 +17,6 @@ class MatchResource(Resource):
         """This endpoint returns the current status of a given match."""
         try:
             response_data = db.session.get(matchId)
-
             return response_data, 200
         except Exception as e:
             db.session.rollback()
