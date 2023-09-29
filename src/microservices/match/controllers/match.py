@@ -1,5 +1,7 @@
 from flask_restx import Namespace, Resource
-from flask import request
+from flask import request, jsonify
+
+import uuid
 
 match_api = Namespace('match', description='Operaciones de Juego')
 
@@ -23,6 +25,8 @@ class MatchResource(Resource):
         This endpoint will be used to request the creation of a new match.
         It will provide the new match’s matchId.
         """
-        response = {}
-        response["matchId"] = 0
-        return 200, response
+        matchId = str(uuid.uuid4())
+        d_matchId = {
+            "matchId": matchId
+        }
+        return jsonify(d_matchId), 200
