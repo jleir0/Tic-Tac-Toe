@@ -1,5 +1,6 @@
 import os
 
+print(os.environ)
 DB_USER = os.getenv('DB_USER')
 print("DB_USER:", DB_USER)
 DB_PASSWORD = os.getenv('DB_PASSWORD')
