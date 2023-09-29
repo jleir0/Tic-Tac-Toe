@@ -16,18 +16,18 @@ class MatchResource(Resource):
     def get(self, matchId):
         try:
             match = Match.query.filter_by(matchId=matchId).first()
-
-            if match is None:
-                abort(404, f"Match with id {matchId} not found")
-
-            response_data = {
-                "matchId": match.matchId
-            }
-
-            return response_data, 200
         except Exception as e:
             db.session.rollback()
             abort(500, f"An error occurred: {str(e)}")
+
+        if match is None:
+            abort(404, f"Match with id {matchId} not found")
+
+        response_data = {
+            "matchId": match.matchId
+        }
+
+        return response_data, 200
 
 @match_api.route('/create')
 class MatchResource(Resource):
