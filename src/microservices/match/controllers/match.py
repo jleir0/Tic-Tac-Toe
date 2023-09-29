@@ -11,12 +11,22 @@ class MatchResource(Resource):
         """Each player will use it to play a move within the game."""
         return 200
     
-@match_api.route('/status')
+@match_api.route('/status/<string:matchId>')
 class MatchResource(Resource):
-    def get(self):
-        """This endpoint returns the current status of a given match."""
-        match_id = request.args.get('match_id') 
-        return 200, match_id
+    def get(self, matchId):
+        try:
+            match = Match.query.filter_by(matchId=matchId).first()
+        except Exception as e:
+            abort(500, f"An error occurred: {str(e)}")
+
+        if match is None:
+            abort(404, f"Match with id {matchId} not found")
+
+        response_data = {
+            "matchId": match.matchId
+        }
+
+        return response_data, 200
 
 @match_api.route('/create')
 class MatchResource(Resource):
@@ -38,5 +48,4 @@ class MatchResource(Resource):
 
             return response_data, 200
         except Exception as e:
-            db.session.rollback()
             abort(500, f"An error occurred: {str(e)}")
