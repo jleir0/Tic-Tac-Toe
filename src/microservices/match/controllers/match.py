@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
-from flask import request, jsonify
-
+from flask import request, abort
+from models import db, Match
 import uuid
 
 match_api = Namespace('match', description='Operaciones de Juego')
@@ -25,8 +25,18 @@ class MatchResource(Resource):
         This endpoint will be used to request the creation of a new match.
         It will provide the new match’s matchId.
         """
-        matchId = str(uuid.uuid4())
-        d_matchId = {
-            "matchId": matchId
-        }
-        return jsonify(d_matchId), 200
+        try:
+            matchId = str(uuid.uuid4())
+
+            response_data = {
+                "matchId": matchId
+            }
+
+            new_match = Match(matchId=matchId)
+            db.session.add(new_match)
+            db.session.commit()
+
+            return response_data, 200
+        except Exception as e:
+            db.session.rollback()
+            abort(500, f"An error occurred: {str(e)}")
