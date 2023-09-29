@@ -48,5 +48,4 @@ class MatchResource(Resource):
 
             return response_data, 200
         except Exception as e:
-            db.session.rollback()
             abort(500, f"An error occurred: {str(e)}")
