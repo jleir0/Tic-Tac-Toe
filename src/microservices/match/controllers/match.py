@@ -11,7 +11,7 @@ class MatchResource(Resource):
         """Each player will use it to play a move within the game."""
         return 200
     
-@match_api.route('/status')
+@match_api.route('/status/<std:matchId>')
 class MatchResource(Resource):
     def get(self, matchId):
         """This endpoint returns the current status of a given match."""
