@@ -20,7 +20,9 @@ class MatchResource(Resource):
             if match is None:
                 abort(404, f"Match with id {matchId} not found")
 
-            response_data = match.serialize()
+            response_data = {
+                "matchId": match.matchId
+            }
 
             return response_data, 200
         except Exception as e:
