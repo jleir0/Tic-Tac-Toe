@@ -17,7 +17,6 @@ class MatchResource(Resource):
         try:
             match = Match.query.filter_by(matchId=matchId).first()
         except Exception as e:
-            db.session.rollback()
             abort(500, f"An error occurred: {str(e)}")
 
         if match is None:
