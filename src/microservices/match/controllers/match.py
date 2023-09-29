@@ -15,7 +15,7 @@ class MatchResource(Resource):
 class MatchResource(Resource):
     def get(self, matchId):
         try:
-            match = Match.query.filter_by(id=matchId).first()
+            match = Match.query.filter_by(matchId=matchId).first()
 
             if match is None:
                 abort(404, f"Match with id {matchId} not found")
