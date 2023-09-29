@@ -45,7 +45,7 @@ jobs:
         
     - name: Create OpenShift secret
       run: |
-        oc delete secret generic tic-tac-toe-secrets
+        oc delete secret tic-tac-toe-secrets
         oc create secret generic tic-tac-toe-secrets 
         --from-literal=DB_USER=${{ secrets.DB_USER }}
         --from-literal=DB_PASSWORD=${{ secrets.DB_PASSWORD }}
