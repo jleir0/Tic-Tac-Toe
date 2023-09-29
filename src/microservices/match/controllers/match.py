@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
 from flask import request, abort
-from src.models import db, Match
+from ....models import db, Match
 import uuid
 
 match_api = Namespace('match', description='Operaciones de Juego')
