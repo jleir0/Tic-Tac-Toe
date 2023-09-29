@@ -11,12 +11,17 @@ class MatchResource(Resource):
         """Each player will use it to play a move within the game."""
         return 200
     
-@match_api.route('/status/<std:matchId>')
+@match_api.route('/status/<string:matchId>')
 class MatchResource(Resource):
     def get(self, matchId):
-        """This endpoint returns the current status of a given match."""
         try:
-            response_data = db.session.get(matchId)
+            match = Match.query.filter_by(id=matchId).first()
+
+            if match is None:
+                abort(404, f"Match with id {matchId} not found")
+
+            response_data = match.serialize()
+
             return response_data, 200
         except Exception as e:
             db.session.rollback()
