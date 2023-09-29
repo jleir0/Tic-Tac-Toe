@@ -15,8 +15,15 @@ class MatchResource(Resource):
 class MatchResource(Resource):
     def get(self):
         """This endpoint returns the current status of a given match."""
-        match_id = request.args.get('match_id') 
-        return 200, match_id
+        try:
+            s_matchId = request.args.get('matchId') 
+
+            response_data = db.session.get(s_matchId)
+            
+            return response_data, 200
+        except Exception as e:
+            db.session.rollback()
+            abort(500, f"An error occurred: {str(e)}")
 
 @match_api.route('/create')
 class MatchResource(Resource):
