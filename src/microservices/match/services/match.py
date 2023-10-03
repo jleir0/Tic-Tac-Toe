@@ -136,9 +136,7 @@ class MatchService:
         if match is None:
             abort(404, f"Match with id {matchId} not found")
         
-        template = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
-        m_available = MatchService.ocsupiedSquares(template)
+        m_available = MatchService.ocsupiedSquares(match)
 
         response_data = {
             "matchId": matchId,
