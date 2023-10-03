@@ -1,6 +1,5 @@
 from models import db, Match
 from flask import  abort
-from datetime import datetime
 
 m_winners = [[[1,1,1],[0,0,0],[0,0,0]],
              [[0,0,0],[1,1,1],[0,0,0]],
@@ -78,7 +77,7 @@ class MatchService:
         if match is None:
             abort(404, f"Match {matchId} not found.")
         
-        if match["status"] is "playing":
+        if match["status"] == "playing":
 
             if square_x > 2 or square_x < 0:
                 abort(400, "X just can be 1, 2 or 3.")
@@ -88,10 +87,10 @@ class MatchService:
             user = None
             pc = None
 
-            if playerId is "X" or playerId is "x":
+            if playerId == "X" or playerId == "x":
                 user = "Xmoves"
                 pc = "Omoves"
-            elif playerId is "O" or playerId is "o":
+            elif playerId == "O" or playerId == "o":
                 user = "Omoves"
                 pc = "Xmoves"
             else:
@@ -101,7 +100,7 @@ class MatchService:
                 abort(400,"You are playing this match as " + match["playerId"])
 
             m_available = MatchService.ocsupiedSquares(match)
-            if user is "Omoves" and m_available == matriz_cero:
+            if user == "Omoves" and m_available == matriz_cero:
                 pcMove = MatchService.checkMove(match, pc, 2, 2)
 
             userMove = MatchService.checkMove(match, user, square_x, square_y)
@@ -144,7 +143,7 @@ class MatchService:
         response_data = {
             "matchId": matchId,
             "status": "The match is " + match["status"],
-            "next": "X" if match["playerId"] is "O" else "O",
+            "next": "X" if match["playerId"] == "O" else "O",
             "overall": m_available,
         }
 
