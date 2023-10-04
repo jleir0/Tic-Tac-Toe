@@ -18,12 +18,12 @@ class MatchService:
     @staticmethod
     def ocsupiedSquares(match):        
         matriz_suma = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        for i in range(3):
-            for j in range(3):
-                matriz_suma[i][j] = match["playerX"][i][j] + match["playerY"][i][j]
-                if matriz_suma[i][j] > 1:
-                    abort(400, "You have introduced an invalid move.")
-
+        #for i in range(3):
+        #    for j in range(3):
+                #matriz_suma[i][j] = match["playerX"][i][j] + match["playerY"][i][j]
+                #if matriz_suma[i][j] > 1:
+                #    abort(400, "You have introduced an invalid move.")
+                
         return matriz_suma
 
 
@@ -38,11 +38,11 @@ class MatchService:
         if match[user][x][y] == 1:
             abort(400, "You have introduced an invalid move.")      
 
-        match[user][x][y] = 1
-        db.session.commit()
+        #match[user][x][y] = 1
+        #db.session.commit()
 
-        if match[user] in m_winners:
-            return True
+        #if match[user] in m_winners:
+        #    return True
         
         return False
     
