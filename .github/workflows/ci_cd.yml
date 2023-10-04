@@ -50,8 +50,7 @@ jobs:
           --from-literal=DB_USER=${{ secrets.DB_USER }} \
           --from-literal=DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
           --from-literal=DB_HOSTNAME=${{ secrets.DB_HOSTNAME }} \
-          --from-literal=DB_PORT=${{ secrets.DB_PORT }} \
-          --from-literal=PERM=${{ secrets.PERM }}
+          --from-literal=DB_PORT=${{ secrets.DB_PORT }} 
 
     - name: Get Tag Name
       id: tag
