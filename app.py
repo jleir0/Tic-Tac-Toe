@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api
 from models import db
-from microservices.match.controllers.match import match_api
+from src.microservices.match.controllers.match import match_api
 from config import DB_URI
 
 app = Flask(__name__)
