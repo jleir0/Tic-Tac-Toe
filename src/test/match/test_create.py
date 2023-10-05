@@ -1,6 +1,6 @@
 import unittest
 from src.microservices.match.services.match import MatchService 
-from src.models import db, Match
+from models import db, Match
 
 class TestCreate(unittest.TestCase):
 
