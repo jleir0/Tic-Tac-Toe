@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-api = Api(app, version='1.0', title='API de Juegos', description='API para gestionar juegos')
+api = Api(app, version='0.7.0', title='Tic-Tac-Toe', description='API para jugar Tic-Tac-Toe')
 api.add_namespace(match_api)
 
 db.init_app(app)
