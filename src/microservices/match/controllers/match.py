@@ -1,6 +1,5 @@
 from flask_restx import Namespace, Resource
 from flask import  abort
-from models import db, Match
 from microservices.match.dto.match import match_model
 from sqlalchemy import desc
 import uuid
@@ -9,7 +8,7 @@ from ..services.match import MatchService
 match_api = Namespace('match', description='Operaciones de Juego')
 
 @match_api.route('/move')
-class MatchResource(Resource):
+class MoveMatch(Resource):
     @match_api.expect(match_model)
     def post(self):
         """
@@ -22,7 +21,7 @@ class MatchResource(Resource):
             abort(500, f"An error occurred: {str(e)}")
 
 @match_api.route('/status/<string:matchId>')
-class MatchResource(Resource):
+class StatusMatch(Resource):
     def get(self, matchId):
         """
         This endpoint retrieve status of a match.
@@ -33,7 +32,7 @@ class MatchResource(Resource):
             abort(500, f"An error occurred: {str(e)}")
         
 @match_api.route('/create')
-class MatchResource(Resource):
+class CreateMatch(Resource):
     def post(self):
         """
         This endpoint will be used to request the creation of a new match.
