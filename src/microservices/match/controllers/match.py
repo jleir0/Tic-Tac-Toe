@@ -1,35 +1,38 @@
 from flask_restx import Namespace, Resource
-from flask import request, abort
-from models import db, Match
+from flask import  abort
+from microservices.match.dto.match import match_model
+from sqlalchemy import desc
 import uuid
+from ..services.match import MatchService
 
 match_api = Namespace('match', description='Operaciones de Juego')
 
 @match_api.route('/move')
-class MatchResource(Resource):
+class MoveMatch(Resource):
+    @match_api.expect(match_model)
     def post(self):
-        """Each player will use it to play a move within the game."""
-        return 200
-    
-@match_api.route('/status/<string:matchId>')
-class MatchResource(Resource):
-    def get(self, matchId):
+        """
+        This endpoint allow to maka a move in a match.
+        """
         try:
-            match = Match.query.filter_by(matchId=matchId).first()
+            data = match_api.payload
+            return MatchService.move(data)
         except Exception as e:
             abort(500, f"An error occurred: {str(e)}")
 
-        if match is None:
-            abort(404, f"Match with id {matchId} not found")
-
-        response_data = {
-            "matchId": match.matchId
-        }
-
-        return response_data, 200
-
+@match_api.route('/status/<string:matchId>')
+class StatusMatch(Resource):
+    def get(self, matchId):
+        """
+        This endpoint retrieve status of a match.
+        """
+        try:
+            return MatchService.status(matchId)
+        except Exception as e:
+            abort(500, f"An error occurred: {str(e)}")
+        
 @match_api.route('/create')
-class MatchResource(Resource):
+class CreateMatch(Resource):
     def post(self):
         """
         This endpoint will be used to request the creation of a new match.
@@ -37,15 +40,6 @@ class MatchResource(Resource):
         """
         try:
             matchId = str(uuid.uuid4())
-
-            response_data = {
-                "matchId": matchId
-            }
-
-            new_match = Match(matchId=matchId)
-            db.session.add(new_match)
-            db.session.commit()
-
-            return response_data, 200
+            return MatchService.create(matchId)
         except Exception as e:
             abort(500, f"An error occurred: {str(e)}")
