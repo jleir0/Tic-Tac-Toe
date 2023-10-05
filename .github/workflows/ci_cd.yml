@@ -15,7 +15,7 @@ jobs:
       
     - name: Run Automated Tests
       run: |
-        # TODO
+         pytest src/tests
       
     - name: Get Tag Name
       id: tag
