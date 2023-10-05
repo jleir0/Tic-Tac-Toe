@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource
 from flask import  abort
-from microservices.match.dto.match import match_model
+from src.microservices.match.dto.match import match_model
 from sqlalchemy import desc
 import uuid
 from ..services.match import MatchService
