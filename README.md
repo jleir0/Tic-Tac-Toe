@@ -36,4 +36,4 @@ I also tried to connect to a database created on Google Cloud Platform, but it w
 
 ## USERS
 
-I have created a little service code for the login.
+I have created a little service code for the login. The secret_key must be a github secret but I mocked one in the test and I dont code how to save the data in the db due to the connection problems and because I make some similar code in the match service.
