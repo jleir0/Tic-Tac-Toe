@@ -1,5 +1,4 @@
 from flask_restx import Namespace, Resource
-from flask import  abort
 from src.microservices.match.dto.match import match_model
 from sqlalchemy import desc
 import uuid
@@ -18,7 +17,7 @@ class MoveMatch(Resource):
             data = match_api.payload
             return MatchService.move(data)
         except Exception as e:
-            abort(500, f"An error occurred: {str(e)}")
+            return(500, f"An error occurred: {str(e)}")
 
 @match_api.route('/status/<string:matchId>')
 class StatusMatch(Resource):
@@ -29,7 +28,7 @@ class StatusMatch(Resource):
         try:
             return MatchService.status(matchId)
         except Exception as e:
-            abort(500, f"An error occurred: {str(e)}")
+            return(500, f"An error occurred: {str(e)}")
         
 @match_api.route('/create')
 class CreateMatch(Resource):
@@ -42,4 +41,4 @@ class CreateMatch(Resource):
             matchId = str(uuid.uuid4())
             return MatchService.create(matchId)
         except Exception as e:
-            abort(500, f"An error occurred: {str(e)}")
+            return(500, f"An error occurred: {str(e)}")
